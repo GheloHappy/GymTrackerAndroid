@@ -8,13 +8,77 @@
     android:gravity="center"
     tools:context=".Login">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="top|center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/h"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@mipmap/ic_launcher_hbarb_round" />
+
+        <TextView
+            android:id="@+id/A"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/h"
+            android:text="A"
+            android:textColor="#000"
+            android:textSize="50dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/P"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/A"
+            android:text="P"
+            android:textColor="#000"
+            android:textSize="50dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/p2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/P"
+            android:text="P"
+            android:textColor="#000"
+            android:textSize="50dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/p2"
+            android:text="Y"
+            android:textColor="#000"
+            android:textSize="50dp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Gym Progress Tracker"
+        android:textColor="#000"
+        android:textStyle="italic"
+        android:textSize="20dp"
+        android:gravity="center"
+        android:layout_marginBottom="50dp"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="30dp"
         android:text="LOGIN"
         android:textSize="30sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -25,11 +89,12 @@
             android:layout_height="wrap_content"
             android:id="@+id/email"
             android:hint="Enter email"
-            android:inputType="text"
+            android:inputType="textEmailAddress"
             android:singleLine="true"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="5dp"
+            />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -43,8 +108,8 @@
             android:hint="Enter password"
             android:inputType="textPassword"
             android:singleLine="true"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
             android:layout_marginBottom="10dp"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -64,22 +129,24 @@
         android:layout_marginBottom="10dp"
         android:visibility="gone"/>
     
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/submit"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:text="Submit"
-        />
-
-    <Button
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:text="Login"
+        android:background="#cc4769"
+        android:layout_marginBottom="5dp"
+        android:textColor="#fff"/>
+    <androidx.appcompat.widget.AppCompatButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/register"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:text="Register"
-        />
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:text="Need account? Sign Up"
+        android:background="#5e3dd4"
+        android:textColor="#fff"/>
 
 </LinearLayout>
