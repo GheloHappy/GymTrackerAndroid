@@ -2,8 +2,11 @@ package com.happy.gymtracker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -71,15 +74,15 @@ public class Login extends AppCompatActivity {
                 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, requestBody, response -> {
                     progressBar.setVisibility(View.GONE);
                     if(response.optString("message").equals("success")){
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        startActivity(intent);
-                        finish();
+                        startActivity(new Intent(Login.this, MainActivity.class));
                     } else {
                         tvError.setVisibility(View.VISIBLE);
                         tvError.setText(response.optString("result"));
                     }
                 }, error -> {
                     System.out.println(error.toString());
+                    tvError.setVisibility(View.VISIBLE);
+                    tvError.setText("Network error");
                     progressBar.setVisibility(View.GONE);
                 }){
                     @Override
