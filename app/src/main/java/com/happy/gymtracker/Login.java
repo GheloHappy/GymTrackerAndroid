@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -60,44 +61,51 @@ public class Login extends AppCompatActivity {
             String email = tietEmail.getText().toString().trim();
             String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
-            if (email.matches(emailPattern) && email != "") {
-                RequestQueue queue = Volley.newRequestQueue(this);
-                String url = "http://192.168.1.64:4950/login";
-
-                JSONObject requestBody = new JSONObject();
-                try {
-                    requestBody.put("email", email);
-                    requestBody.put("password", pass);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, requestBody, response -> {
-                    progressBar.setVisibility(View.GONE);
-                    if(response.optString("message").equals("success")){
-                        startActivity(new Intent(Login.this, MainActivity.class));
-                    } else {
-                        tvError.setVisibility(View.VISIBLE);
-                        tvError.setText(response.optString("result"));
-                    }
-                }, error -> {
-                    System.out.println(error.toString());
-                    tvError.setVisibility(View.VISIBLE);
-                    tvError.setText("Network error");
-                    progressBar.setVisibility(View.GONE);
-                }){
-                    @Override
-                    public Map<String, String> getHeaders() {
-                        Map<String, String> headers = new HashMap<>();
-                        headers.put("Content-Type", "application/json");
-                        return headers;
-                    }
-                };
-                queue.add(jsonObjectRequest);
-            } else {
+            if(TextUtils.isEmpty(email) || TextUtils.isEmpty(pass)) {
                 tvError.setVisibility(View.VISIBLE);
-                tvError.setText("Invalid email address");
+                tvError.setText("Please fill all fields");
                 progressBar.setVisibility(View.GONE);
-                //Toast.makeText(this, "Invalid email address", Toast.LENGTH_SHORT).show();
+            } else {
+                if (email.matches(emailPattern) && email != "") {
+                    RequestQueue queue = Volley.newRequestQueue(this);
+                    String url = "http://192.168.1.64:4950/login";
+
+                    JSONObject requestBody = new JSONObject();
+                    try {
+                        requestBody.put("email", email);
+                        requestBody.put("password", pass);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, requestBody, response -> {
+                        progressBar.setVisibility(View.GONE);
+                        if (response.optString("message").equals("success")) {
+                            startActivity(new Intent(Login.this, MainActivity.class));
+                            finish();
+                        } else {
+                            tvError.setVisibility(View.VISIBLE);
+                            tvError.setText(response.optString("result"));
+                        }
+                    }, error -> {
+                        System.out.println(error.toString());
+                        tvError.setVisibility(View.VISIBLE);
+                        tvError.setText("Network error");
+                        progressBar.setVisibility(View.GONE);
+                    }) {
+                        @Override
+                        public Map<String, String> getHeaders() {
+                            Map<String, String> headers = new HashMap<>();
+                            headers.put("Content-Type", "application/json");
+                            return headers;
+                        }
+                    };
+                    queue.add(jsonObjectRequest);
+                } else {
+                    tvError.setVisibility(View.VISIBLE);
+                    tvError.setText("Invalid email address");
+                    progressBar.setVisibility(View.GONE);
+                    //Toast.makeText(this, "Invalid email address", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

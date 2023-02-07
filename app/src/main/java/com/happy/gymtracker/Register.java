@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -59,52 +60,65 @@ public class Register extends AppCompatActivity {
         btnSubmit.setOnClickListener(v -> {
             tvError.setVisibility(View.GONE );
             progressBar.setVisibility(View.VISIBLE);
-            name = String.valueOf(tietName.getText());
-            email = String.valueOf(tietEmail.getText());
-            pass = String.valueOf(tietPassword.getText());
-            passConfirm = String.valueOf(tietConfirmPass.getText());
+            name = String.valueOf(tietName.getText()).trim();
+            email = String.valueOf(tietEmail.getText()).trim();
+            pass = String.valueOf(tietPassword.getText()).trim();
+            passConfirm = String.valueOf(tietConfirmPass.getText()).trim();
+            String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
-            if(pass == passConfirm) {
-                RequestQueue queue = Volley.newRequestQueue(this);
-                String url = "http://192.168.1.64:4950/user";
+            if(TextUtils.isEmpty(name) || TextUtils.isEmpty(email) || TextUtils.isEmpty(pass)  || TextUtils.isEmpty(passConfirm) ) {
+                tvError.setVisibility(View.VISIBLE);
+                tvError.setText("Please fill all fields");
+                progressBar.setVisibility(View.GONE);
+            } else {
+                if (email.matches(emailPattern) && email != ""){
+                    if(pass.equals(passConfirm)) {
+                        RequestQueue queue = Volley.newRequestQueue(this);
+                        String url = "http://192.168.1.64:4950/user";
 
-                JSONObject requestBody = new JSONObject();
-                try {
-                    requestBody.put("email", email);
-                    requestBody.put("password", pass);
-                    requestBody.put("name", name);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, requestBody, response -> {
-                    progressBar.setVisibility(View.GONE);
-                    if(response.optString("message").equals("success")){
-                        Toast.makeText(this, "Registration successful", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getApplicationContext(), Login.class);
-                        startActivity(intent);
-                        finish();
+                        JSONObject requestBody = new JSONObject();
+                        try {
+                            requestBody.put("email", email);
+                            requestBody.put("password", pass);
+                            requestBody.put("name", name);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, requestBody, response -> {
+                            progressBar.setVisibility(View.GONE);
+                            if(response.optString("message").equals("success")){
+                                Toast.makeText(this, "Registration successful", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(getApplicationContext(), Login.class);
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                tvError.setVisibility(View.VISIBLE);
+                                tvError.setText(response.optString("message"));
+                            }
+                        }, error -> {
+                            tvError.setVisibility(View.VISIBLE);
+                            tvError.setText("Network error");
+                            progressBar.setVisibility(View.GONE);
+                        }){
+                            @Override
+                            public Map<String, String> getHeaders() {
+                                Map<String, String> headers = new HashMap<>();
+                                headers.put("Content-Type", "application/json");
+                                return headers;
+                            }
+                        };
+                        queue.add(jsonObjectRequest);
                     } else {
                         tvError.setVisibility(View.VISIBLE);
-                        tvError.setText(response.optString("message"));
+                        tvError.setText("Password does not match");
+                        progressBar.setVisibility(View.GONE);
+                        //Toast.makeText(this, "Password does not match.", Toast.LENGTH_SHORT).show();
                     }
-                }, error -> {
-                    System.out.println(error.toString());
+                } else {
+                    tvError.setVisibility(View.VISIBLE);
+                    tvError.setText("Invalid email address");
                     progressBar.setVisibility(View.GONE);
-                }){
-                    @Override
-                    public Map<String, String> getHeaders() {
-                        Map<String, String> headers = new HashMap<>();
-                        headers.put("Content-Type", "application/json");
-                        return headers;
-                    }
-                };
-                queue.add(jsonObjectRequest);
-            } else {
-                tvError.setVisibility(View.VISIBLE);
-                tvError.setText("Password does not match.");
-                progressBar.setVisibility(View.GONE);
-                //Toast.makeText(this, "Password does not match.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
