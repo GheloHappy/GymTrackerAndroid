@@ -14,6 +14,9 @@
         tools:targetApi="31"
         android:networkSecurityConfig="@xml/network_security_config">
         <activity
+            android:name=".Login"
+            android:exported="false"/>
+        <activity
             android:name=".Register"
             android:exported="false" />
         <activity
@@ -21,11 +24,11 @@
             android:exported="false"/>
 
         <activity
-            android:name=".Login"
-            android:exported="true">
+            android:name=".SplashScreen"
+            android:exported="true"
+            android:theme="@style/SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

@@ -33,7 +33,6 @@ public class Login extends AppCompatActivity {
     ProgressBar progressBar;
     TextInputEditText tietEmail, tietPass;
     String email, pass;
-    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +43,9 @@ public class Login extends AppCompatActivity {
         } catch (NullPointerException e) {
         }
         setContentView(R.layout.activity_login);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("LoginCredentials", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
 
         btnRegister = findViewById(R.id.register);
         btnLogin = findViewById(R.id.submit);
@@ -80,6 +82,12 @@ public class Login extends AppCompatActivity {
                     JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, requestBody, response -> {
                         progressBar.setVisibility(View.GONE);
                         if (response.optString("message").equals("success")) {
+                            //put user credentials in local storage
+                            editor.putString("Email", email);
+                            editor.putString("Password", pass);
+                            editor.putLong("ExpirationTime", System.currentTimeMillis() + (1000 * 60 * 60 * 24 * 15));
+                            editor.apply();
+
                             startActivity(new Intent(Login.this, MainActivity.class));
                             finish();
                         } else {
