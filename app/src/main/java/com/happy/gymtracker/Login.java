@@ -20,6 +20,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.textfield.TextInputEditText;
+import com.happy.gymtracker.api.ApiVars;
+import com.happy.gymtracker.auth.SharedPref;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,6 +35,8 @@ public class Login extends AppCompatActivity {
     ProgressBar progressBar;
     TextInputEditText tietEmail, tietPass;
     String email, pass;
+    SharedPref sharedPref = new SharedPref();
+    ApiVars apiVars = new ApiVars();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +47,6 @@ public class Login extends AppCompatActivity {
         } catch (NullPointerException e) {
         }
         setContentView(R.layout.activity_login);
-
-        SharedPreferences sharedPreferences = getSharedPreferences("LoginCredentials", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
 
         btnRegister = findViewById(R.id.register);
         btnLogin = findViewById(R.id.submit);
@@ -70,8 +71,8 @@ public class Login extends AppCompatActivity {
             } else {
                 if (email.matches(emailPattern) && email != "") {
                     RequestQueue queue = Volley.newRequestQueue(this);
-                    String url = "http://192.168.1.64:4950/login";
-
+                    String url = apiVars.apiUrl+"/login";
+                    System.out.println(url);
                     JSONObject requestBody = new JSONObject();
                     try {
                         requestBody.put("email", email);
@@ -83,10 +84,7 @@ public class Login extends AppCompatActivity {
                         progressBar.setVisibility(View.GONE);
                         if (response.optString("message").equals("success")) {
                             //put user credentials in local storage
-                            editor.putString("Email", email);
-                            editor.putString("Password", pass);
-                            editor.putLong("ExpirationTime", System.currentTimeMillis() + (1000 * 60 * 60 * 24 * 15));
-                            editor.apply();
+                            sharedPref.SaveUser(getApplicationContext(),email,pass);
 
                             startActivity(new Intent(Login.this, MainActivity.class));
                             finish();

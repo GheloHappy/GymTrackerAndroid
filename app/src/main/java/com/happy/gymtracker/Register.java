@@ -22,6 +22,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.textfield.TextInputEditText;
+import com.happy.gymtracker.api.ApiVars;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,6 +37,7 @@ public class Register extends AppCompatActivity {
     Button btnSubmit, btnLogin;
     String name, email, pass, passConfirm;
     CheckBox cbShowPass;
+    ApiVars apiVars = new ApiVars();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +76,7 @@ public class Register extends AppCompatActivity {
                 if (email.matches(emailPattern) && email != ""){
                     if(pass.equals(passConfirm)) {
                         RequestQueue queue = Volley.newRequestQueue(this);
-                        String url = "http://192.168.1.64:4950/user";
+                        String url = apiVars.apiUrl+"/user";
 
                         JSONObject requestBody = new JSONObject();
                         try {
