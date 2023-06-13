@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/gridLayoutHome"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:rowCount="3"
+    tools:context=".home.HomeFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_row="0"
+        android:layout_column="0"
+        android:textSize="30dp"
+        android:text="Save daily program"
+        android:layout_marginTop="30dp"
+        android:textAlignment="center"
+        android:textColor="#4B808E"/>
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_row="1"
+        android:layout_column="0"
+        android:rowCount="10"
+        android:columnCount="3"
+        android:padding="5dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:text="Type of Program: "
+            android:textSize="15dp"
+            android:layout_marginTop="20dp"
+            android:textStyle="bold"
+            />
+
+        <EditText
+            android:id="@+id/etProgram"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_columnSpan="3"
+            android:layout_row="1"
+            android:layout_column="0"
+            android:hint="Type of program"
+            android:textAlignment="center"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_column="0"
+            android:layout_row="1"
+            android:text="Date: "
+            android:textSize="15dp"
+            android:layout_marginTop="40dp"
+            android:textStyle="bold"
+            />
+
+        <EditText
+            android:id="@+id/etDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_columnSpan="1"
+            android:layout_row="2"
+            android:layout_column="0"
+            android:hint="Date"
+            android:textAlignment="center"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_columnWeight="1"
+            android:text=""
+            android:textSize="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_row="1"
+            android:layout_column="1"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_columnWeight="1"
+            android:text=""
+            android:textSize="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_row="1"
+            android:layout_column="2"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_row="2"
+            android:text="Weight: "
+            android:textSize="15dp"
+            android:layout_marginTop="20dp"
+            android:textStyle="bold"
+            />
+
+        <EditText
+            android:id="@+id/etWeight"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_columnSpan="2"
+            android:layout_column="0"
+            android:layout_row="4"
+            android:hint="lbs/kg"
+            android:inputType="numberDecimal"
+            android:textAlignment="center" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_row="3"
+            android:layout_column="2"
+            android:text="lbs/kg: "
+            android:textSize="15dp"
+            android:layout_marginTop="20dp"
+            android:textStyle="bold"
+            />
+
+        <Spinner
+            android:id="@+id/spinWeightType"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="2"
+            android:layout_row="4"
+            android:layout_column="2"
+            android:textSize="25dp"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="2"
+            android:layout_row="5"
+            android:layout_column="0"
+            android:text="Reps: "
+            android:textSize="15dp"
+            android:layout_marginTop="20dp"
+            android:textStyle="bold"
+            />
+
+        <EditText
+            android:id="@+id/etReps"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_row="6"
+            android:layout_column="0"
+            android:hint="reps count?"
+            android:textAlignment="center"
+            android:inputType="number"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="2"
+            android:layout_row="5"
+            android:layout_column="1"
+            android:text="Sets: "
+            android:textSize="15dp"
+            android:layout_marginTop="20dp"
+            android:textStyle="bold"
+            />
+
+        <EditText
+            android:id="@+id/etSets"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_row="6"
+            android:layout_column="1"
+            android:hint="sets count?"
+            android:textAlignment="center"
+            android:inputType="number"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="2"
+            android:layout_row="6"
+            android:layout_column="0"
+            android:text="Time: "
+            android:textSize="15dp"
+            android:layout_marginTop="50dp"
+            android:textStyle="bold"
+            />
+
+        <EditText
+            android:id="@+id/etTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_columnSpan="2"
+            android:layout_row="7"
+            android:layout_column="0"
+            android:hint="time"
+            android:textAlignment="center"
+            android:inputType="numberDecimal"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_row="6"
+            android:layout_column="2"
+            android:text="sec/min/hr: "
+            android:textSize="15dp"
+            android:layout_marginTop="50dp"
+            android:textStyle="bold"
+            />
+
+        <Spinner
+            android:id="@+id/spinTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="2"
+            android:layout_row="7"
+            android:layout_column="2"
+            android:textSize="25dp"
+            />
+
+    </GridLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnSave"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_row="2"
+        android:layout_column="0"
+        android:text="SAVE"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:textSize="20dp"
+        android:textColor="#fff"
+        android:background="#608287"
+        />
+</GridLayout>
